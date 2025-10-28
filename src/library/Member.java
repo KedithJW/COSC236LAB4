@@ -21,7 +21,7 @@ public class Member {
 		this.borrowedBooks = new ArrayList<>();
 	}
 	
-	// TODO: implement functionality of Member class
+	// DONE: implement functionality of Member class
 	
 	//Information Expert 
 	
