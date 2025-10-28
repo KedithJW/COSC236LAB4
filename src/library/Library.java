@@ -19,6 +19,7 @@ public class Library {
     private ArrayList<Book> catalogue;
     private ArrayList<Member> members;
 
+	// CREATOR: Library creates and manages Books and Members.
     public Library() {
         catalogue = new ArrayList<>();
         members = new ArrayList<>();
@@ -36,7 +37,7 @@ public class Library {
         members.add(m);
     }
 
-    // Find Book by title (Information Expert)
+    // Find Book by title
     public Book findBookByTitle(String title) {
         for (Book b : catalogue) {
             if (b.getTitle().equals(title)) {
@@ -95,7 +96,7 @@ public class Library {
         return false;
     }
 
-    // Display functions (High Cohesion)
+    // Display functions
     public void displayCatalogue() {
         System.out.println("=== Library Catalogue ===");
         for (Book b : catalogue) {
