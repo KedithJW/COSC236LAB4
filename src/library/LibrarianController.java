@@ -15,7 +15,7 @@ public class LibrarianController {
 	
 	public void borrowBook(Member m, Book b) {
 		if(library.isAvailable(b)) { // check if book is available
-			m.borrowBook(); // delegate to member
+			m.borrowBook(b); // delegate to member
 			b.manageState(); // change book state
 		}
 		else
@@ -23,7 +23,7 @@ public class LibrarianController {
 	}
 	
 	public void returnBook(Member m, Book b) {
-		m.returnBook();
+		m.returnBook(b);
 		b.manageState();
 	}
 
