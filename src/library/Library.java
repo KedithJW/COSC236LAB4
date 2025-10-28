@@ -68,12 +68,12 @@ public class Library {
 
         if (book.isAvailable()) {
             if (member.borrowBook(book)) {
-                book.setAvailable(false);
+                book.borrow();
                 System.out.println(member.getName() + " borrowed " + title);
                 return true;
             }
         }else{
-        	System.out.println("Book \"" + title + "\" is not available.");
+        	System.out.println("Book " + title + " is not available.");
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class Library {
         }
 
         if (member.returnBook(book)) {
-            book.setAvailable(true);
+            book.returnBook();
             System.out.println(member.getName() + " returned " + title);
             return true;
         }
