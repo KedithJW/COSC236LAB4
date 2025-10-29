@@ -1,5 +1,5 @@
 package library;
- 
+
 
 public class Book {
     private String title;
@@ -34,7 +34,7 @@ public class Book {
         }
     }
 
-   
+
     public boolean returnBook() {
         if (!isAvailable) {
             isAvailable = true;

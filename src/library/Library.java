@@ -1,122 +1,82 @@
 package library;
 
 import java.util.ArrayList;
-
-/*
- * Library class implementing GRASP principles:
- * Creator and Controller.
- * 
- * Responsibilities:
- * - Manage the catalog of books and members.
- * - Track which books are borrowed and available.
- *
- *  @author dylancassid-y
- */
+import java.util.HashMap;
 
 public class Library {
+	
+	//  GRASP Principles: Creator, Controller
+	//	Manage the catalog of books and members.
+	//	Track which books are borrowed and available
+	
+	
+	// Attributes:
+	// private catalog (list of Book) 
+	// private members (list of Members)
 
-    // Attributes
-    private ArrayList<Book> catalogue;
-    private ArrayList<Member> members;
+	// TODO: implement functionality of Member class
+	 private ArrayList<Book> availableBooks = new ArrayList<>();
+	 private HashMap<Member, ArrayList<Book>> memberBorrowedBooks = new HashMap<>();
+	 
+	 public void addBook(Book book) {
+	     availableBooks.add(book);
+	     System.out.println(book + " has been added to the catalog.");
+	 }
 
-	// CREATOR: Library creates and manages Books and Members.
-    public Library() {
-        catalogue = new ArrayList<>();
-        members = new ArrayList<>();
-    }
+	 // Adds a new member to the library (without a separate class)
+	 public void addMember(Member member) {
+	     if (!memberBorrowedBooks.containsKey(member)) {
+	         memberBorrowedBooks.put(member, new ArrayList<>());
+	         System.out.println("Member " + member + " has been added.");
+	     } else {
+	         System.out.println("Member " + member + " already exists.");
+	     }
+	 }
+	 
+	 // Show the available books in the library
+	 public void showAvailableBooks() {
+	     System.out.println("Available Books:");
+	     for (Book book : availableBooks) {
+	         System.out.println(book);
+	     }
+	 }
 
-    // Add a new Book to the catalogue
-    public void addBook(String title, String author) {
-        Book b = new Book(title, author);
-        catalogue.add(b);
-    }
+	//Show members of in the library
+	public void showMembers() {
+	   System.out.println("Library members:");
+	   for (Member member : memberBorrowedBooks.keySet()) {
+	       System.out.println(member);
+	   }
+	}
+	
+	 // Borrow a book from the library
+	public void borrowBook(Book b, Member m) {
+	    if (!memberBorrowedBooks.containsKey(m)) {
+	        System.out.println("Member " + m + " not found.");
+	        return;
+	    }
+	    if (availableBooks.contains(b)) {
+	        availableBooks.remove(b);
+	        memberBorrowedBooks.get(m).add(b);
+	        System.out.println(m + " has successfully borrowed " + b);
+	    } else {
+	        System.out.println(b + " is either already borrowed or not available.");
+	    }
+	}
+	
+	 // Return a book to the library
+	 public void returnBook(Book b, Member m) {
+	     if (!memberBorrowedBooks.containsKey(m)) {
+	         System.out.println("Member " + m + " not found.");
+	         return;
+	     }
 
-    // Register a new Member
-    public void registerMember(int memberID, String name) {
-        Member m = new Member(memberID, name);
-        members.add(m);
-    }
-
-    // Find Book by title
-    public Book findBookByTitle(String title) {
-        for (Book b : catalogue) {
-            if (b.getTitle().equals(title)) {
-                return b;
-            }
-        }
-        return null;
-    }
-
-    // Find Member by ID
-    public Member findMemberByID(int id) {
-        for (Member m : members) {
-            if (m.getMemberId() == id) {
-                return m;
-            }
-        }
-        return null;
-    }
-
-    // CONTROLLER: Handles borrow and return requests
-    public boolean borrowBook(int memberID, String title) {
-        Member member = findMemberByID(memberID);
-        Book book = findBookByTitle(title);
-
-        if (member == null || book == null) {
-            System.out.println("Invalid member or book.");
-            return false;
-        }
-
-        if (book.isAvailable()) {
-            if (member.borrowBook(book)) {
-                book.borrow();
-                System.out.println(member.getName() + " borrowed " + title);
-                return true;
-            }
-        }else{
-        	System.out.println("Book " + title + " is not available.");
-        }
-        return false;
-    }
-
-    public boolean returnBook(int memberID, String title) {
-        Member member = findMemberByID(memberID);
-        Book book = findBookByTitle(title);
-
-        if (member == null || book == null) {
-            System.out.println("Invalid member or book.");
-            return false;
-        }
-
-        if (member.returnBook(book)) {
-            book.returnBook();
-            System.out.println(member.getName() + " returned " + title);
-            return true;
-        }
-        return false;
-    }
-
-    // Display functions
-    public void displayCatalogue() {
-        System.out.println("=== Library Catalogue ===");
-        for (Book b : catalogue) {
-			if(isAvailable(b)){
-            	System.out.println("- " + b.getTitle() + " (Available)");
-			}else{
-				System.out.println("- " + b.getTitle() + " (Borrowed)");	
-        	}
-		}
-    }
-
-    public void displayMembers() {
-        System.out.println("=== Registered Members ===");
-        for (Member m : members) {
-            System.out.println("ID: " + m.getMemberId() + " | Name: " + m.getName());
-        }
-    }
-
-	// Helper for controller
-    public boolean isAvailable(Book b) {
-        return catalogue.contains(b) && b.isAvailable();
-    }
+	     if (memberBorrowedBooks.get(m).contains(b)) {
+	         memberBorrowedBooks.get(m).remove(b);
+	         availableBooks.add(b);
+	         System.out.println(m + " has successfully returned " + b);
+	     } else {
+	         System.out.println(m + " didn't borrow " + b);
+	     }
+	 }
 }

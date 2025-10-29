@@ -106,6 +106,8 @@ public static void main(String[] args) {
     System.out.println("\n *** Show all members");
     library.showMembers();
     
+
+    
     // Borrow a book
     System.out.println("\n *** Alice borrows Dune:");
     library.borrowBook("Dune", "Alice");
