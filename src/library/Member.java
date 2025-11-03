@@ -31,6 +31,7 @@ public class Member {
 			return false;
 		}
 		
+		// This is the responsibility of library
 		if(borrowedBooks.contains(book)) { // check if book exists in list
 			return false;
 		}else {
@@ -88,7 +89,11 @@ public class Member {
 		return new ArrayList<>(borrowedBooks);
 	}
 
-	
+    @Override
+    public String toString() {
+        return name;
+    }
 	
 	
 }
+
