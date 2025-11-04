@@ -83,5 +83,42 @@ public static void main(String[] args) {
     // Show available books after borrowing
     System.out.println("\n *** Show all books:");
     library.showAvailableBooks();
+
+	// Finding member by name
+	System.out.println("\n *** Testing findMemberByName with Alice ***");
+	Member foundMember = library.findMemberByName("Alice");
+	if(foundMember != null){
+		System.out.println("Found member: " + foundMember.getName());
+	}else{
+		System.out.println("Member not found");
+	}
+
+	// Finding book by title
+	System.out.println("\n *** Testing findBookByTitle with Moby Dick ***");
+	Book foundBook = library.findBookByTitle("Moby Dick");
+	if(foundBook != null){
+		System.out.println("Found book: " + foundBook);
+	}else{
+		System.out.println("Book not found");
+	}
+
+	// Testing lookup for missing member
+	System.out.println("\n *** Testing findMemberByName with missing member (Carol) ***");
+	Member missingMember = library.findMemberByName("Carol");
+	if(missingMember != null){
+		System.out.println("Found member: " + missingMember.getName());
+	}else{
+		System.out.println("Member not found");
+	}
+
+	// Testing lookup for missing book
+	System.out.println("\n *** Testing findBookByTitle with missing book (The Hobbit) ***");
+	Book missingBook = library.findBookByTitle("The Hobbit");
+	if(missingBook != null){
+		System.out.println("Found book: " + missingBook);
+	}else{
+		System.out.println("Book not found");
+	}
+	
 	}
 }
