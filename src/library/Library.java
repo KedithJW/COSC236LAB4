@@ -48,6 +48,32 @@ public class Library {
 	       System.out.println(member);
 	   }
 	}
+
+	//Find member by name
+	public Member findMemberByName(String name){
+		if(name == null){
+			return null;
+		}
+		for(Member member : memberBorrowedBooks.keySet()){
+			if(member.getName() != null && member.getName().equals(name)){
+				return member;
+			}
+		}
+		return null;
+	}
+
+	//Find book by title
+	public Book findBookByTitle(String title){
+		if(title == null){
+			return null;
+		}
+		for(Book book : availableBooks){
+			if(book.getTitle() != null && book.getTitle().equals(title)){
+				return book;
+			}
+		}
+		return null;
+	}
 	
 	 // Borrow a book from the library
 	public void borrowBook(Book b, Member m) {
